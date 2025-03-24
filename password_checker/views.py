@@ -16,8 +16,8 @@ class PasswordCheckView(APIView):
             is_compromised = Password.objects.filter(hash=hash_value).exists()
 
             recommendations = []
-            if len(password) < 8:
-                recommendations.append("Le mot de passe doit comporter au moins 8 caractères.")
+            if len(password) < 12:
+                recommendations.append("Le mot de passe doit comporter au moins 12 caractères.")
             if not any(char.isdigit() for char in password):
                 recommendations.append("Le mot de passe doit contenir des chiffres.")
             if not any(char.islower() for char in password):
