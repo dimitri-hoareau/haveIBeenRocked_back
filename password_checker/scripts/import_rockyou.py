@@ -15,13 +15,18 @@ def hash_password(password):
     """Hash a password using SHA-1."""
     return hashlib.sha1(password.encode('utf-8')).hexdigest()
 
-def run():
 
+def run():
     bulk_list = []      
     bulk_hashes = set() 
+    processed = 0
 
     with open(ROCKYOU_PATH, 'r', encoding='latin-1') as file:
-        for line in tqdm(file, desc="Import progress", unit=" password"):
+        total_lines = sum(1 for _ in file)
+
+    with open(ROCKYOU_PATH, 'r', encoding='latin-1') as file:
+        for line in file:
+            processed += 1
             password = line.strip()
             hash_value = hash_password(password)
 
@@ -35,7 +40,10 @@ def run():
                         bulk_list = []
                         bulk_hashes = set()
                     except Exception as e:
-                        print(f"Erreur d'insertion en bulk : {e}")
+                        print(f"Error for bulk insertion : {e}")
+
+            if processed % 10000 == 0:
+                print(f"{processed} / {total_lines}")
 
     if bulk_list:
         try:

@@ -32,8 +32,6 @@ COPY . /app/
 COPY entrypoint.sh /app/entrypoint.sh
 RUN chmod +x /app/entrypoint.sh
 
-
-# Define the entrypoint
 ENTRYPOINT ["/app/entrypoint.sh"]
 
 # Expose the Django port
