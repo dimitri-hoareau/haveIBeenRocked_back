@@ -31,8 +31,11 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-# Development only: update ALLOWED_HOSTS with your production domain names before deploying.
+# SECURITY WARNING: Development only: update ALLOWED_HOSTS with your production domain names before deploying.
 ALLOWED_HOSTS = ["0.0.0.0", "localhost", "127.0.0.1"]
+
+#SECURITY WARNING: update CORS_ALLOW_ALL_ORIGINS for production
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -47,6 +50,7 @@ INSTALLED_APPS = [
     'rest_framework', 
     'password_checker', 
     'django_extensions',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +61,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'backend.urls'
